@@ -1,17 +1,29 @@
 {
-  "name": "Daphne Nguyen",
   "name_font": "Homemade Apple",
   "logo_image": "",
+  "name": "Daphne Ng.",
+  "phone": "+84 3447 24245",
+  "location": "Saigon, Vietnam",
   "role": "Graphic Designer & Reels Editor",
+  "specs": [
+    {
+      "tag": "[EXP]",
+      "value": "6+ Years — Graphic Design & Brand Communication"
+    },
+    {
+      "tag": "[FOCUS]",
+      "value": "Graphic Design & Short-form Video (Reels / TikTok / Threads)"
+    },
+    {
+      "tag": "[BRANDS]",
+      "value": "Apple (TopZone, TGDĐ), Shopee, Điện Máy Xanh, An Khang"
+    },
+    {
+      "tag": "[METRICS]",
+      "value": "10M+ Views on TikTok + Facebook"
+    }
+  ],
   "bio_1": "Saigon-based Graphic & UI Designer and Short-form Video Editor with 6+ years of commercial experience, including campaigns for Apple (TopZone / Mobile World Group) and Shopee.",
   "bio_2": "I also direct and edit short-form video (Reels/TikTok/Shorts) that's earned tens of millions of organic views, and manage high-engagement brand social channels — blending aesthetic craft with measurable business impact.",
-  "specs": [
-    { "tag": "[EXP]", "value": "6+ Years — Graphic Design & Brand Communication" },
-    { "tag": "[FOCUS]", "value": "Graphic Design & Short-form Video (Reels / TikTok / Threads)" },
-    { "tag": "[BRANDS]", "value": "Apple (TopZone, TGDĐ), Shopee, Điện Máy Xanh, An Khang" },
-    { "tag": "[METRICS]", "value": "10M+ Views on TikTok + Facebook" }
-  ],
-  "email": "hello@daphnenguyen.co",
-  "phone": "+84 000 000 000",
-  "location": "Saigon, Vietnam"
+  "email": "daphneng.contact@gmail.com"
 }
