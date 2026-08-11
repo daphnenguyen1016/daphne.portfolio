@@ -1,0 +1,437 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   ========================================================================== */
+:root {
+  --color-bg:        #FBFAF8;
+  --color-ink:        #141212;
+  --color-ink-soft:   rgba(20, 18, 18, 0.72);
+  --color-gray:       #9B958F;
+  --color-gray-line:  #E7E2DB;
+  --color-wine:       #6B2733;
+  --color-wine-deep:  #4E1D26;
+  --color-wine-tint:  #F5EAEA;
+
+  --font-display: 'Homemade Apple', cursive;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  --ruler-w:    44px;
+  --pane-w:     44vw;
+  --ease-soft:  cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+a:focus-visible {
+  outline: 2px solid var(--color-wine);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   CUSTOM CURSOR (desktop / fine-pointer only — see script.js)
+   ========================================================================== */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-wine);
+}
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-wine);
+  opacity: 0.5;
+  transition: width 0.25s var(--ease-soft), height 0.25s var(--ease-soft), opacity 0.25s;
+}
+body.cursor-active .cursor-dot,
+body.cursor-active .cursor-ring { display: block; }
+.cursor-dot, .cursor-ring { display: none; }
+body.cursor-active { cursor: none; }
+body.cursor-active a,
+body.cursor-active .project { cursor: none; }
+
+/* ==========================================================================
+   RULER — vertical measuring strip, synced to scroll in script.js
+   ========================================================================== */
+.ruler {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--ruler-w);
+  height: 100vh;
+  overflow: hidden;
+  z-index: 20;
+}
+.ruler__counter {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: var(--color-wine);
+  z-index: 2;
+}
+.ruler__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.tick {
+  position: absolute;
+  left: 0;
+  width: 40%;
+  height: 1px;
+  background: var(--color-gray-line);
+}
+
+/* The single marker that travels top→bottom as the page scrolls */
+.ruler__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-wine);
+  opacity: 0.6;
+  will-change: transform;
+}
+
+/* ==========================================================================
+   LEFT PANE — fixed, left-aligned identity / bio / specs / contact
+   ========================================================================== */
+.left-pane {
+  position: fixed;
+  top: 0;
+  left: var(--ruler-w);
+  width: calc(var(--pane-w) - var(--ruler-w));
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  overflow-y: auto; /* safety net for very short windows only — content is sized to fit normally */
+  scrollbar-width: none;
+}
+.left-pane::-webkit-scrollbar { display: none; }
+
+.left-pane__inner {
+  width: 100%;
+  padding: 2vh 4vw 2vh 4.5vw;
+  max-width: 460px;
+}
+
+.identity { margin-bottom: 1rem; }
+.identity__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1;
+  margin: 0 0 0.35rem 0;
+  color: var(--color-ink);
+}
+.identity__logo {
+  display: block;
+  max-width: 220px;
+  max-height: 88px;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.5rem 0;
+}
+.identity__role {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+}
+
+.bio { margin-bottom: 1.1rem; }
+.bio p {
+  margin: 0 0 0.45rem 0;
+  font-size: 0.77rem;
+  line-height: 1.46;
+  color: var(--color-ink-soft);
+}
+.bio p:last-child { margin-bottom: 0; }
+
+.specs {
+  margin: 0 0 1.1rem 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--color-gray-line);
+}
+.specs__row {
+  display: grid;
+  grid-template-columns: 80px 1fr; /* fixed first column — every value starts on the same left edge */
+  gap: 0.6rem;
+  padding: 0.26rem 0;
+  align-items: baseline;
+}
+.specs__tag {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+  color: var(--color-gray);
+  white-space: nowrap;
+}
+.specs__value {
+  margin: 0;
+  font-size: 0.77rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.36;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--color-gray-line);
+}
+.contact__link {
+  font-size: 0.82rem;
+  text-decoration: none;
+  color: var(--color-ink);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s var(--ease-soft), color 0.2s var(--ease-soft);
+}
+.contact__link:hover {
+  color: var(--color-wine);
+  border-color: var(--color-wine);
+}
+.contact__note {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-gray);
+}
+
+/* ==========================================================================
+   RIGHT PANE — scrolling project list
+   ========================================================================== */
+.right-pane {
+  margin-left: var(--pane-w);
+  width: calc(100vw - var(--pane-w));
+  padding: 12vh 6vw 22vh 6vw;
+}
+
+/* CATEGORY FILTER — plain uppercase text, no background/border/frame.
+   Active category is ink-black, the rest sit in gray. */
+.project-filter {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 1.6rem;
+  padding: 0.9rem 0;
+  margin-bottom: 1.6rem;
+  background: var(--color-bg);
+}
+.project-filter__item {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  cursor: pointer;
+  transition: color 0.25s var(--ease-soft);
+}
+.project-filter__item:hover { color: var(--color-ink-soft); }
+.project-filter__item.is-active { color: var(--color-ink); }
+.project-filter__item:focus-visible {
+  outline: 2px solid var(--color-wine);
+  outline-offset: 3px;
+}
+
+.project {
+  padding: 3.4rem 0;
+  border-bottom: 1px solid var(--color-gray-line);
+}
+.project:first-of-type { padding-top: 0; }
+
+.project__head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 0.7rem;
+}
+.project__index {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-wine);
+}
+.project__title {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  flex: 1 1 auto;
+}
+.project__meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--color-gray);
+  white-space: nowrap;
+}
+
+.project__desc {
+  margin: 0 0 1.6rem 0;
+  max-width: 60ch;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+}
+
+.project__media {
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--color-wine-tint);
+}
+/* Vertical — Reels / TikTok / Shorts */
+.project__media[data-format="vertical"] {
+  max-width: 300px;
+  aspect-ratio: 9 / 16;
+}
+/* Horizontal — presentations, key visuals, static graphic design work */
+.project__media[data-format="horizontal"] {
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+}
+.project__media iframe,
+.project__media img {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover;
+}
+
+/* Placeholder shown until a real data-video value is added */
+.media-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: 1.5rem;
+  border: 1px dashed var(--color-gray);
+  border-radius: 4px;
+  color: var(--color-gray);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+.media-placeholder__icon {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-wine);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-wine);
+  font-size: 0.7rem;
+}
+
+.right-pane__end {
+  padding-top: 4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-gray);
+}
+
+/* ==========================================================================
+   SCROLL-REVEAL MOTION
+   ========================================================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   RESPONSIVE — stacked layout below 900px
+   ========================================================================== */
+@media (max-width: 900px) {
+  .ruler { display: none; }
+
+  .left-pane {
+    position: static;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .left-pane__inner {
+    max-width: none;
+    padding: 10vh 6vw 5vh 6vw;
+  }
+
+  .right-pane {
+    margin-left: 0;
+    width: 100%;
+    padding: 4vh 6vw 12vh 6vw;
+  }
+
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .cursor-dot, .cursor-ring { display: none !important; }
+  body.cursor-active { cursor: auto; }
+}

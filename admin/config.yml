@@ -1,0 +1,99 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded images get saved in the repo, and the URL path the site
+# uses to display them. Do not change these unless you also update the
+# image folder references elsewhere.
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "en"
+
+collections:
+  - name: "profile"
+    label: "Hồ sơ (Profile)"
+    files:
+      - name: "profile"
+        label: "Thông tin chính"
+        file: "content/profile.json"
+        fields:
+          - { label: "Tên hiển thị", name: "name", widget: "string" }
+          - label: "Font chữ cho tên"
+            name: "name_font"
+            widget: "select"
+            options:
+              - { label: "Homemade Apple (viết tay, mềm)", value: "Homemade Apple" }
+              - { label: "Caveat (viết tay, nghiêng nhẹ)", value: "Caveat" }
+              - { label: "Permanent Marker (bụi, cá tính)", value: "Permanent Marker" }
+              - { label: "Chữ thường (không viết tay)", value: "Inter" }
+          - label: "Logo ảnh (tuỳ chọn)"
+            name: "logo_image"
+            widget: "image"
+            required: false
+            hint: "Nếu bạn upload logo ở đây, nó sẽ thay thế tên chữ viết tay phía trên."
+          - { label: "Chức danh / Slogan", name: "role", widget: "string" }
+          - { label: "Giới thiệu — đoạn 1", name: "bio_1", widget: "text" }
+          - { label: "Giới thiệu — đoạn 2", name: "bio_2", widget: "text" }
+          - label: "Thông số kỹ thuật (Specs)"
+            name: "specs"
+            widget: "list"
+            summary: "{{tag}} {{value}}"
+            fields:
+              - { label: "Nhãn, ví dụ [EXP]", name: "tag", widget: "string" }
+              - { label: "Nội dung", name: "value", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Số điện thoại", name: "phone", widget: "string" }
+          - { label: "Địa điểm", name: "location", widget: "string" }
+
+  - name: "projects"
+    label: "Projects"
+    files:
+      - name: "projects"
+        label: "Danh sách Project"
+        file: "content/projects.json"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            label_singular: "Project"
+            summary: "{{fields.title}} — {{fields.category}}"
+            fields:
+              - { label: "Tên project", name: "title", widget: "string" }
+              - label: "Danh mục"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Banner", value: "banner" }
+                  - { label: "Reels", value: "reels" }
+                  - { label: "Presentation", value: "presentation" }
+                  - { label: "Branding", value: "branding" }
+                hint: "Phải khớp với 1 trong 4 nút lọc trên trang chính."
+              - { label: "Loại (chữ nhỏ, ví dụ: Graphic Design)", name: "type_label", widget: "string" }
+              - { label: "Năm", name: "year", widget: "string" }
+              - { label: "Mô tả ngắn", name: "description", widget: "text" }
+              - label: "Định dạng khung hiển thị"
+                name: "format"
+                widget: "select"
+                options:
+                  - { label: "Ngang — cho Presentation / Graphic Design / Banner", value: "horizontal" }
+                  - { label: "Dọc — cho Reels / TikTok", value: "vertical" }
+                default: "horizontal"
+              - label: "Loại nội dung"
+                name: "platform"
+                widget: "select"
+                options:
+                  - { label: "Ảnh (upload trực tiếp)", value: "image" }
+                  - { label: "Video TikTok (nhúng link)", value: "tiktok" }
+                  - { label: "Video Facebook (nhúng link)", value: "facebook" }
+                default: "image"
+              - label: "Ảnh project"
+                name: "image"
+                widget: "image"
+                required: false
+                hint: "Chỉ cần điền nếu 'Loại nội dung' ở trên là Ảnh."
+              - label: "ID/Link video"
+                name: "video_src"
+                widget: "string"
+                required: false
+                hint: "Chỉ cần điền nếu 'Loại nội dung' là TikTok/Facebook. TikTok: chỉ lấy dãy số ID. Facebook: dán nguyên link video."

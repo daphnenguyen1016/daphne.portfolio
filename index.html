@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Daphne Nguyen — Graphic Designer & Reels Editor</title>
+<meta name="description" content="Portfolio of Daphne Nguyen, Saigon-based Graphic & UI Designer and Short-form Video Editor. 6+ years creating campaigns for Apple, Shopee and viral Reels/TikTok content." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Caveat:wght@500;600&family=Permanent+Marker&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<!-- Loaded so that the "set your password" email link (from Netlify
+     Identity, used by the /admin content manager) works when it opens
+     this page. It stays invisible unless that link is used. -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+<!-- Custom cursor (desktop only, see script.js) -->
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- Vertical ruler strip, ticks are generated in script.js -->
+<div class="ruler" id="ruler" aria-hidden="true">
+  <div class="ruler__counter" id="rulerCounter">00</div>
+  <div class="ruler__track" id="rulerTrack"></div>
+  <div class="ruler__progress" id="rulerProgress"></div>
+</div>
+
+<!-- LEFT PANE — fixed, does not scroll. All content below is filled in
+     by script.js from content/profile.json (editable via /admin). -->
+<aside class="left-pane">
+  <div class="left-pane__inner">
+
+    <header class="identity reveal" data-reveal id="identity">
+      <!-- name/logo injected here -->
+      <p class="identity__role" id="identityRole"></p>
+    </header>
+
+    <div class="bio reveal" data-reveal id="bio">
+      <!-- bio paragraphs injected here -->
+    </div>
+
+    <dl class="specs reveal" data-reveal id="specs">
+      <!-- spec rows injected here -->
+    </dl>
+
+    <footer class="contact reveal" data-reveal id="contact">
+      <!-- contact links injected here -->
+    </footer>
+
+  </div>
+</aside>
+
+<!-- RIGHT PANE — normal scroll, holds the project list. Projects below
+     are injected by script.js from content/projects.json (editable via
+     /admin) — nothing to hand-edit here anymore. -->
+<main class="right-pane">
+
+  <!-- CATEGORY FILTER — click a label to show only that type of project. -->
+  <nav class="project-filter" id="projectFilter">
+    <button class="project-filter__item is-active" data-category="banner">Banner</button>
+    <button class="project-filter__item" data-category="reels">Reels</button>
+    <button class="project-filter__item" data-category="presentation">Presentation</button>
+    <button class="project-filter__item" data-category="branding">Branding</button>
+  </nav>
+
+  <div id="projectList"><!-- project cards injected here --></div>
+
+  <div class="right-pane__end reveal" data-reveal>
+    <p>That's the reel so far — more coming soon.</p>
+  </div>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
