@@ -12,6 +12,7 @@ daphne-portfolio/
 │   └── config.yml
 ├── content/
 │   ├── profile.json      → tên, bio, thông số, liên hệ
+│   ├── categories.json   → thứ tự & tên 4 nút lọc (Banner/Reels/...)
 │   └── projects.json     → toàn bộ project
 └── images/uploads/       → ảnh bạn upload qua trang quản trị sẽ tự lưu ở đây
 ```
@@ -74,13 +75,21 @@ Vào `tenweb.netlify.app/admin`, đăng nhập, bạn sẽ thấy 2 mục bên t
 **📁 Projects** → bấm vào → thấy danh sách project hiện tại → bấm **+ Add "Project"** để thêm mới:
 - Điền tên, chọn danh mục (Banner/Reels/Presentation/Branding), loại, năm, mô tả
 - Chọn **định dạng khung**: Ngang (cho ảnh graphic design/presentation) hoặc Dọc (cho Reels/TikTok)
-- Chọn **loại nội dung**: nếu là Ảnh → kéo-thả ảnh vào ô **Ảnh project**; nếu là video TikTok/Facebook → dán ID/link vào ô **ID/Link video**
+- Chọn **loại nội dung**:
+  - **Ảnh** → kéo-thả 1 ảnh vào ô **Ảnh project**
+  - **Behance** → dán nguyên link project Behance vào ô **Link Behance / ID/Link video** (ví dụ `https://www.behance.net/gallery/12345678/Ten-Project`). Dùng cách này khi project có **nhiều ảnh/GIF** bên trong, vì nó nhúng nguyên trang case study Behance vào — khung hiển thị sẽ tự cao hơn bình thường để vừa. **Lưu ý:** project đó phải đã **Publish** (không phải bản nháp riêng tư) trên Behance thì mới nhúng được; nếu dán sai định dạng link, khung sẽ báo lỗi rõ ràng thay vì trống trơn.
+  - **TikTok/Facebook** → dán ID/link vào ô tương tự
 - Kéo thả để sắp xếp thứ tự project trong danh sách
 - Bấm **Save**, rồi bấm nút **Publish** màu xanh ở góc trên → khoảng 1 phút sau trang chính tự cập nhật
 
 **👤 Hồ sơ (Profile)** → sửa tên, bio, thông số `[EXP]/[FOCUS]/[BRANDS]/[METRICS]`, email, SĐT.
 - Đổi **font chữ tên**: chọn trong danh sách có sẵn (Homemade Apple, Caveat, Permanent Marker, hoặc chữ thường).
 - Có **logo ảnh** rồi? Upload vào ô **Logo ảnh** — nó sẽ tự thay thế chữ viết tay.
+
+**🔀 Danh mục lọc (Filter)** → đổi **thứ tự** hoặc **tên hiển thị** của 4 nút Banner/Reels/Presentation/Branding — không cần đụng code nữa:
+- Kéo-thả vào biểu tượng **⠿** bên trái mỗi dòng để sắp xếp lại thứ tự. Mục nằm **đầu danh sách** sẽ là mục tự động được chọn khi khách vừa vào trang.
+- Đổi được cả **tên hiển thị** (ví dụ đổi "Banner" thành "Key Visual") mà không ảnh hưởng gì đến project đã gán — vì project vẫn nhận diện qua "Mã danh mục" phía sau, chỉ có chữ hiển thị ra ngoài là đổi.
+- Lưu ý: mục này chỉ **sắp xếp lại** 4 danh mục có sẵn. Muốn thêm hẳn 1 danh mục hoàn toàn mới (ví dụ thêm "Illustration") thì vẫn cần mình chỉnh code một chút — vì lúc đó cần thêm cả lựa chọn mới vào phần chọn danh mục của từng Project. Cứ nhắn mình khi cần.
 
 Mỗi lần sửa xong nhớ bấm **Publish** để lưu thật (Save chỉ là lưu nháp).
 

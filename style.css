@@ -337,6 +337,14 @@ body.cursor-active .project { cursor: none; }
   max-width: 560px;
   aspect-ratio: 16 / 9;
 }
+/* Behance — a full scrolling case study (many images/GIFs), not a fixed
+   ratio. This overrides whatever format was picked, since Behance embeds
+   need their own taller box regardless. */
+.project__media[data-platform="behance"] {
+  max-width: 560px;
+  aspect-ratio: unset;
+  height: 640px;
+}
 .project__media iframe,
 .project__media img {
   width: 100%;

@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "label": "Branding", "value": "branding" },
+    { "label": "Banner", "value": "banner" },
+    { "label": "Reels", "value": "reels" },
+    { "label": "Presentation", "value": "presentation" }
+  ]
+}

@@ -1,81 +1,81 @@
 {
   "items": [
     {
-      "video_src": "",
+      "title": "TopZone × Apple — iPhone Launch Campaign",
+      "category": "banner",
       "type_label": "Graphic Design",
-      "platform": "image",
-      "format": "horizontal",
-      "title": "Portfolio",
-      "image": "https://www.behance.net/gallery/220717623/PORTFOLIO-2025",
+      "year": "2023",
       "description": "Key visual set and promotional assets for an iPhone launch, produced for TopZone (Mobile World Group), Apple's authorized retail partner in Vietnam.",
-      "year": "2023",
-      "category": "banner"
+      "format": "horizontal",
+      "platform": "image",
+      "image": "",
+      "video_src": ""
     },
     {
-      "video_src": "",
-      "type_label": "Graphic Design",
-      "platform": "image",
-      "format": "horizontal",
       "title": "Shopee 11.11 — Flash Sale Motion Set",
-      "image": "",
+      "category": "banner",
+      "type_label": "Graphic Design",
+      "year": "2023",
       "description": "Motion-driven promotional graphics built for Shopee's biggest sale event of the year, designed for fast-scroll social feeds.",
-      "year": "2023",
-      "category": "banner"
+      "format": "horizontal",
+      "platform": "image",
+      "image": "",
+      "video_src": ""
     },
     {
-      "video_src": "",
-      "type_label": "Reels Editing",
-      "platform": "tiktok",
-      "format": "vertical",
       "title": "Điện Máy Xanh — Social Reels Series",
-      "image": "",
+      "category": "reels",
+      "type_label": "Reels Editing",
+      "year": "2022",
       "description": "A recurring short-form video series for one of Vietnam's largest electronics retailers, edited for organic reach on TikTok and Facebook.",
-      "year": "2022",
-      "category": "reels"
-    },
-    {
-      "video_src": "",
-      "type_label": "Graphic Design & UI",
-      "platform": "image",
-      "format": "horizontal",
-      "title": "An Khang Pharmacy — Brand Refresh",
-      "image": "",
-      "description": "Visual identity and digital UI touch-points supporting An Khang's brand refresh across retail and social channels.",
-      "year": "2022",
-      "category": "branding"
-    },
-    {
-      "video_src": "",
-      "type_label": "Short-form Video",
+      "format": "vertical",
       "platform": "tiktok",
-      "format": "vertical",
-      "title": "Viral Reel — 10M+ Organic Views",
       "image": "",
-      "description": "Directed and edited short-form content that crossed 10 million organic views without paid promotion.",
-      "year": "2024",
-      "category": "reels"
+      "video_src": ""
     },
     {
-      "video_src": "",
-      "type_label": "Social Content",
-      "platform": "facebook",
-      "format": "vertical",
-      "title": "Personal Brand — Threads Growth Series",
-      "image": "",
-      "description": "A self-directed content series used to grow and manage a high-engagement brand presence on Threads.",
-      "year": "2024",
-      "category": "branding"
-    },
-    {
-      "video_src": "",
-      "type_label": "Presentation",
-      "platform": "image",
+      "title": "An Khang Pharmacy — Brand Refresh",
+      "category": "branding",
+      "type_label": "Graphic Design & UI",
+      "year": "2022",
+      "description": "Visual identity and digital UI touch-points supporting An Khang's brand refresh across retail and social channels.",
       "format": "horizontal",
-      "title": "Shopee Seller Summit — Brand Presentation Deck",
+      "platform": "image",
       "image": "",
-      "description": "A pitch and brand-guideline deck presented to stakeholders, translating the campaign's visual system into a clear slide narrative.",
+      "video_src": ""
+    },
+    {
+      "title": "Viral Reel — 10M+ Organic Views",
+      "category": "reels",
+      "type_label": "Short-form Video",
+      "year": "2024",
+      "description": "Directed and edited short-form content that crossed 10 million organic views without paid promotion.",
+      "format": "vertical",
+      "platform": "tiktok",
+      "image": "",
+      "video_src": ""
+    },
+    {
+      "title": "Personal Brand — Threads Growth Series",
+      "category": "branding",
+      "type_label": "Social Content",
+      "year": "2024",
+      "description": "A self-directed content series used to grow and manage a high-engagement brand presence on Threads.",
+      "format": "vertical",
+      "platform": "facebook",
+      "image": "",
+      "video_src": ""
+    },
+    {
+      "title": "Shopee Seller Summit — Brand Presentation Deck",
+      "category": "presentation",
+      "type_label": "Presentation",
       "year": "2023",
-      "category": "presentation"
+      "description": "A pitch and brand-guideline deck presented to stakeholders, translating the campaign's visual system into a clear slide narrative.",
+      "format": "horizontal",
+      "platform": "image",
+      "image": "",
+      "video_src": ""
     }
   ]
 }

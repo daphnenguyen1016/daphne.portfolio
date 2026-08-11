@@ -59,13 +59,9 @@
      /admin) — nothing to hand-edit here anymore. -->
 <main class="right-pane">
 
-  <!-- CATEGORY FILTER — click a label to show only that type of project. -->
-  <nav class="project-filter" id="projectFilter">
-    <button class="project-filter__item is-active" data-category="banner">Banner</button>
-    <button class="project-filter__item" data-category="reels">Reels</button>
-    <button class="project-filter__item" data-category="presentation">Presentation</button>
-    <button class="project-filter__item" data-category="branding">Branding</button>
-  </nav>
+  <!-- CATEGORY FILTER — order/labels come from content/categories.json
+       (editable via /admin), rendered by script.js. -->
+  <nav class="project-filter" id="projectFilter"></nav>
 
   <div id="projectList"><!-- project cards injected here --></div>
 

@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Ruler doesn't depend on page content, so it can start immediately.
   initRuler(prefersReducedMotion);
 
-  // Content comes from content/profile.json and content/projects.json —
-  // both editable through /admin without touching any code. Cursor init
-  // waits too, since it binds hover effects to links/cards that don't
-  // exist until the content above is rendered.
-  await Promise.all([loadProfile(), loadProjects()]);
+  // Content comes from content/profile.json, content/projects.json, and
+  // content/categories.json — all editable through /admin without
+  // touching any code. Cursor init waits too, since it binds hover
+  // effects to links/cards that don't exist until content is rendered.
+  await Promise.all([loadProfile(), loadCategories(), loadProjects()]);
 
   initMediaEmbeds();
   initProjectFilter();
@@ -115,6 +115,36 @@ function renderProfile(p) {
       contact.appendChild(span);
     }
   }
+}
+
+async function loadCategories() {
+  const nav = document.getElementById('projectFilter');
+  if (!nav) return;
+  try {
+    const res = await fetch('content/categories.json', { cache: 'no-store' });
+    const data = await res.json();
+    renderCategories(data.items || [], nav);
+  } catch (err) {
+    console.warn('Could not load categories.json — is this running on a local server?', err);
+    // Fallback so the site still works even if this file is missing/unreachable.
+    renderCategories([
+      { label: 'Banner', value: 'banner' },
+      { label: 'Reels', value: 'reels' },
+      { label: 'Presentation', value: 'presentation' },
+      { label: 'Branding', value: 'branding' },
+    ], nav);
+  }
+}
+
+function renderCategories(items, nav) {
+  nav.innerHTML = '';
+  items.forEach((cat, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'project-filter__item' + (i === 0 ? ' is-active' : '');
+    btn.dataset.category = cat.value;
+    btn.textContent = cat.label;
+    nav.appendChild(btn);
+  });
 }
 
 async function loadProjects() {
@@ -328,14 +358,7 @@ function initMediaEmbeds() {
     const src = (el.dataset.src || '').trim();
 
     if (!src) {
-      const isImage = platform === 'image';
-      el.innerHTML = `
-        <div class="media-placeholder">
-          <span class="media-placeholder__icon">${isImage ? '▢' : '▶'}</span>
-          <span>${isImage
-            ? 'Add your image path<br>in data-src'
-            : `Add your ${platform === 'tiktok' ? 'TikTok' : 'Facebook'} video link<br>in data-src`}</span>
-        </div>`;
+      showPlaceholder(el, platform, '▶', platformEmptyHint(platform));
       return;
     }
 
@@ -345,6 +368,21 @@ function initMediaEmbeds() {
       img.alt = el.dataset.alt || '';
       img.loading = 'lazy';
       el.appendChild(img);
+      return;
+    }
+
+    if (platform === 'behance') {
+      // Accepts a full pasted Behance project URL, e.g.
+      // https://www.behance.net/gallery/123456789/Project-Name
+      const match = src.match(/gallery\/(\d+)/);
+      if (!match) {
+        showPlaceholder(el, platform, '!', 'That doesn\'t look like a Behance project link.<br>Expected format: behance.net/gallery/12345678/…');
+        return;
+      }
+      const iframe = document.createElement('iframe');
+      iframe.loading = 'lazy';
+      iframe.src = `https://www.behance.net/embed/project/${match[1]}?ilo0=1`;
+      el.appendChild(iframe);
       return;
     }
 
@@ -361,6 +399,24 @@ function initMediaEmbeds() {
 
     el.appendChild(iframe);
   });
+}
+
+function platformEmptyHint(platform) {
+  switch (platform) {
+    case 'image': return 'Add your image path<br>in data-src';
+    case 'behance': return 'Paste your Behance project link<br>in data-src';
+    case 'tiktok': return 'Add your TikTok video link<br>in data-src';
+    case 'facebook': return 'Add your Facebook video link<br>in data-src';
+    default: return 'Add your media<br>in data-src';
+  }
+}
+
+function showPlaceholder(el, platform, icon, html) {
+  el.innerHTML = `
+    <div class="media-placeholder">
+      <span class="media-placeholder__icon">${icon}</span>
+      <span>${html}</span>
+    </div>`;
 }
 
 /* --------------------------------------------------------------------------

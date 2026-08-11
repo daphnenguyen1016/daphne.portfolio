@@ -46,6 +46,26 @@ collections:
           - { label: "Số điện thoại", name: "phone", widget: "string" }
           - { label: "Địa điểm", name: "location", widget: "string" }
 
+  - name: "categories"
+    label: "Danh mục lọc (Filter)"
+    files:
+      - name: "categories"
+        label: "Thứ tự & tên danh mục"
+        file: "content/categories.json"
+        fields:
+          - label: "Danh mục"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.label}}"
+            hint: "Kéo-thả (biểu tượng ⠿ bên trái mỗi dòng) để đổi thứ tự hiển thị trên trang chính. Mục đầu tiên trong danh sách sẽ là mục được chọn mặc định khi khách vào trang."
+            fields:
+              - { label: "Tên hiển thị", name: "label", widget: "string" }
+              - label: "Mã danh mục"
+                name: "value"
+                widget: "select"
+                options: ["banner", "reels", "presentation", "branding"]
+                hint: "Phải khớp với 'Danh mục' đã chọn trong từng Project — đừng đổi trừ khi bạn cũng đổi lại ở từng project tương ứng."
+
   - name: "projects"
     label: "Projects"
     files:
@@ -83,7 +103,8 @@ collections:
                 name: "platform"
                 widget: "select"
                 options:
-                  - { label: "Ảnh (upload trực tiếp)", value: "image" }
+                  - { label: "Ảnh (upload trực tiếp — 1 ảnh)", value: "image" }
+                  - { label: "Behance (dán link project — nhiều ảnh/GIF)", value: "behance" }
                   - { label: "Video TikTok (nhúng link)", value: "tiktok" }
                   - { label: "Video Facebook (nhúng link)", value: "facebook" }
                 default: "image"
@@ -92,8 +113,8 @@ collections:
                 widget: "image"
                 required: false
                 hint: "Chỉ cần điền nếu 'Loại nội dung' ở trên là Ảnh."
-              - label: "ID/Link video"
+              - label: "Link Behance / ID/Link video"
                 name: "video_src"
                 widget: "string"
                 required: false
-                hint: "Chỉ cần điền nếu 'Loại nội dung' là TikTok/Facebook. TikTok: chỉ lấy dãy số ID. Facebook: dán nguyên link video."
+                hint: "Behance: dán nguyên link project, ví dụ behance.net/gallery/12345678/Ten-Project — project đó cần đã Publish (không phải bản nháp) trên Behance thì mới nhúng được. TikTok: chỉ lấy dãy số ID trong link. Facebook: dán nguyên link video."
